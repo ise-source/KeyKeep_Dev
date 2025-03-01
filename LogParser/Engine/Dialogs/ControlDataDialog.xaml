@@ -1,0 +1,164 @@
+﻿<UserControl x:Class="LogParser.Engine.Dialogs.ControlDataDialog"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:LogParser.Engine.Dialogs"
+             xmlns:MD="http://materialdesigninxaml.net/winfx/xaml/themes"
+             mc:Ignorable="d" FontFamily="Bahnschrift Condensed" Unloaded="UserControl_Unloaded">
+
+    <Grid UseLayoutRounding="True">
+        <Border Height="500" Width="550" Background="#202124">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="3*"/>
+                    <RowDefinition Height="10*"/>
+                </Grid.RowDefinitions>
+
+                <Border>
+                    <Grid>
+                        <Button Height="50" Width="50" MD:ButtonAssist.CornerRadius="10" BorderThickness="0" ToolTip="Закрыть"
+                                Background="Transparent" HorizontalAlignment="Right" Margin="20 0"
+                                Cursor="Hand" Command="{x:Static MD:DialogHost.CloseDialogCommand}">
+
+                            <MD:PackIcon VerticalAlignment="Center" HorizontalAlignment="Center"
+                                         Width="30" Height="30" Foreground="LightGray"
+                                         Kind="Remove" />
+                        </Button>
+
+                        <StackPanel Orientation="Horizontal">
+                            <Border HorizontalAlignment="Center" Width="48" Height="48"  VerticalAlignment="Center" Margin="20 0">
+                                <Image Name="IM_Icon" HorizontalAlignment="Center" VerticalAlignment="Center" Stretch="UniformToFill">
+                                    <Image.Style>
+                                        <Style TargetType="Image">
+                                            <Setter Property="Source" Value="{Binding Icon}"/>
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding Data.Icon}" Value="{x:Null}">
+                                                    <Setter Property="Source" Value="/Resources/noPhoto.png"/>
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </Image.Style>
+                                </Image>
+                            </Border>
+                            
+                            <StackPanel VerticalAlignment="Center">
+                                <TextBlock Foreground="White" VerticalAlignment="Center" FontSize="22" FontFamily="Bahnschrift SemiBold Condensed">
+                                    <TextBlock.Style>
+                                        <Style TargetType="TextBlock">
+                                            <Setter Property="Text" Value="Управление аккаунтом"/>
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding Data.ID}" Value="0">
+                                                    <Setter Property="Text" Value="Добавление аккаунта"/>
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </TextBlock.Style>
+                                </TextBlock>
+                                <TextBlock FontSize="16" VerticalAlignment="Center" Foreground="Gray" Text="Вам доступно: просмотр, редактирование" FontFamily="Bahnschrift Light Condensed"/>
+                            </StackPanel>
+                        </StackPanel>
+                    </Grid>
+                </Border>
+                
+                <MD:Transitioner Grid.Row="1" Name="Wrapper" SelectedIndex="0">
+                    <MD:TransitionerSlide>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="7*"/>
+                                <RowDefinition Height="2*"/>
+                            </Grid.RowDefinitions>
+
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
+
+                                <StackPanel VerticalAlignment="Center" Grid.Row="0">
+                                    <TextBlock Text="Название" Margin="10 0" Foreground="Gray" FontSize="16"/>
+
+                                    <Grid Margin="10 5">
+                                        <TextBox Name="TB_Name" Grid.Row="0" Background="#161616" VerticalContentAlignment="Center"
+                                                 MD:TextFieldAssist.HasLeadingIcon="True" Padding="10" MD:TextFieldAssist.LeadingIcon="RenameOutline" FontSize="16"
+                                                 BorderBrush="Transparent" BorderThickness="1" MD:HintAssist.Hint="Введите название" Foreground="White"
+                                                 MD:TextFieldAssist.UnderlineBrush="Transparent" MD:TextFieldAssist.TextFieldCornerRadius="15"/>
+                                    </Grid>
+                                </StackPanel>
+                                
+                                <StackPanel VerticalAlignment="Center" Grid.Row="1">
+                                    <TextBlock Text="Ссылка на сайт (Если требуется)" Margin="10 0" Foreground="Gray" FontSize="16"/>
+
+                                    <Grid Margin="10 5">
+                                        <TextBox Name="TB_WebSite" Grid.Row="0" Background="#161616" VerticalContentAlignment="Center"
+                                                 MD:TextFieldAssist.HasLeadingIcon="True" Padding="10" MD:TextFieldAssist.LeadingIcon="Web" FontSize="16"
+                                                 BorderBrush="Transparent" BorderThickness="1" MD:HintAssist.Hint="Введите ссылку на сайт" Foreground="White"
+                                                 MD:TextFieldAssist.UnderlineBrush="Transparent" MD:TextFieldAssist.TextFieldCornerRadius="15" TextChanged="TB_WebSite_TextChanged"/>
+                                    </Grid>
+                                </StackPanel>
+
+                                <StackPanel VerticalAlignment="Center" Grid.Row="2">
+                                    <TextBlock Text="Логин" Margin="10 0" Foreground="Gray" FontSize="16"/>
+
+                                    <Grid Margin="10 5">
+                                        <TextBox Name="TB_Login" Grid.Row="0" Background="#161616" VerticalContentAlignment="Center"
+                                                 MD:TextFieldAssist.HasLeadingIcon="True" Padding="10" MD:TextFieldAssist.LeadingIcon="AccountOutline" FontSize="16"
+                                                 BorderBrush="Transparent" BorderThickness="1" MD:HintAssist.Hint="Введите логин" Foreground="White"
+                                                 MD:TextFieldAssist.UnderlineBrush="Transparent" MD:TextFieldAssist.TextFieldCornerRadius="15"/>
+                                    </Grid>
+                                </StackPanel>
+
+                                <StackPanel VerticalAlignment="Center" Grid.Row="3">
+                                    <TextBlock Text="Пароль" Margin="10 0" Foreground="Gray" FontSize="16"/>
+
+                                    <Grid Margin="10 5">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="10*"/>
+                                            <ColumnDefinition Width="*"/>
+                                        </Grid.ColumnDefinitions>
+                                        <TextBox Name="TB_Password" Grid.Row="0" Background="#161616" HorizontalAlignment="Stretch" VerticalContentAlignment="Center"
+                                                 MD:TextFieldAssist.HasLeadingIcon="True" Padding="10" MD:TextFieldAssist.LeadingIcon="PasswordOutline" FontSize="16"
+                                                 BorderBrush="Transparent" BorderThickness="1" MD:HintAssist.Hint="Введите пароль" Foreground="White"
+                                                 MD:TextFieldAssist.UnderlineBrush="Transparent" MD:TextFieldAssist.TextFieldCornerRadius="15"/>
+
+                                        <Border ToolTip="Сгенерировать пароль" MouseDown="BTN_RandomPassword_MouseDown" Grid.Column="1" Width="20" Height="20" Style="{StaticResource ButtonWhiteHoverStyle}" Margin="10">
+                                            <MD:PackIcon Width="20" Height="20" Foreground="LightGray" Kind="DiceMultipleOutline" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                        </Border>
+                                    </Grid>
+                                </StackPanel>
+                            </Grid>
+
+
+                            <StackPanel Grid.Row="1" Margin="10" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center">
+                                <Border Name="BTN_Delete" MouseDown="BTN_Delete_MouseDown" Width="150" Height="35" Background="#33808080" CornerRadius="15" Cursor="Hand">
+                                    <Border.Style>
+                                        <Style TargetType="Border" BasedOn="{StaticResource ItemHoverStyle}">
+                                            <Setter Property="Visibility" Value="Visible"/>
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding Data.ID}" Value="0">
+                                                    <Setter Property="Visibility" Value="Collapsed"/>
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </Border.Style>
+                                    <Label FontSize="16" Foreground="LightGray" HorizontalAlignment="Center" VerticalAlignment="Center" Content="Удалить"/>
+                                </Border>
+                                
+                                <Border Name="BTN_Sumbit" Style="{StaticResource ButtonAddControlHoverStyle}" MouseDown="BTN_Sumbit_MouseDown" Margin="10" Width="150" Height="35" Background="#BF2AC384" CornerRadius="15" Cursor="Hand">
+                                    <Label FontSize="16" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" Content="Сохранить"/>
+                                </Border>
+                            </StackPanel>
+                        </Grid>
+                    </MD:TransitionerSlide>
+
+                    <MD:TransitionerSlide>
+
+                    </MD:TransitionerSlide>
+                </MD:Transitioner>
+                
+            </Grid>
+        </Border>
+    </Grid>
+</UserControl>

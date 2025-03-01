@@ -1,0 +1,121 @@
+﻿<UserControl x:Class="LogParser.Engine.Dialogs.UpdatesDialog"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:LogParser.Engine.Dialogs"
+             xmlns:MD="http://materialdesigninxaml.net/winfx/xaml/themes"
+             mc:Ignorable="d" FontFamily="Bahnschrift Condensed" Unloaded="UserControl_Unloaded">
+
+    <Grid UseLayoutRounding="True">
+        <Border Height="400" Width="350" Background="#202124">
+            <MD:Transitioner Name="Wrapper" SelectedIndex="0">
+                <MD:TransitionerSlide>
+                    <MD:TransitionerSlide.OpeningEffects>
+                        <MD:TransitionEffect Kind="FadeIn" Duration="0:0:1"/>
+                        <MD:TransitionEffect Kind="ExpandIn" Duration="0:0:1"/>
+                    </MD:TransitionerSlide.OpeningEffects>
+
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="5*"/>
+                            <RowDefinition Height="3*"/>
+                        </Grid.RowDefinitions>
+
+                        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Margin="20">
+                                <Grid>
+                                    <Border Panel.ZIndex="100" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                        <Border.Effect>
+                                            <BlurEffect Radius="20"/>
+                                        </Border.Effect>
+
+                                        <Ellipse Width="60" Height="60" Fill="#0C2AC384"/>
+                                    </Border>
+
+                                    <Border Panel.ZIndex="200" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                        <MD:PackIcon HorizontalAlignment="Center" VerticalAlignment="Center" Kind="Creation" Width="60" Height="60" Foreground="#FF2AC384"/>
+                                    </Border>
+                                </Grid>
+
+                                <Label HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White"
+                                       Content="Обнаружено новое обновление!" FontSize="22"/>
+
+                                <Label HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="Gray"
+                                       Content="Почему бы не обновиться и узнать, что нового?" 
+                                       FontSize="18" FontFamily="Bahnschrift Light Condensed"/>
+                            </StackPanel>
+                        </StackPanel>
+
+                        <MD:TransitioningContent Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center">
+                            <MD:TransitioningContent.OpeningEffects>
+                                <MD:TransitionEffect Kind="FadeIn" Duration="0:0:2.5"/>
+                                <MD:TransitionEffect Kind="SlideInFromBottom" Duration="0:0:1"/>
+                            </MD:TransitioningContent.OpeningEffects>
+
+                            <StackPanel>
+                                <Border Name="BTN_UpdateNow" Style="{StaticResource ButtonAddControlHoverStyle}" MouseDown="BTN_UpdateNow_MouseDown" Margin="10" Width="200" Height="40" Background="#BF2AC384" CornerRadius="15" Cursor="Hand">
+                                    <Label FontSize="16" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" Content="Установить сейчас"/>
+                                </Border>
+
+                                <Border Name="BTN_UpdatesSkip" Style="{StaticResource ItemHoverStyle}" MouseDown="BTN_UpdatesSkip_MouseDown" Width="200" Height="40" Background="#33808080" CornerRadius="15" Cursor="Hand">
+                                    <Label FontSize="16" Foreground="LightGray" HorizontalAlignment="Center" VerticalAlignment="Center" Content="Напомнить позже"/>
+                                </Border>
+                            </StackPanel>
+                        </MD:TransitioningContent>
+                    </Grid>
+                </MD:TransitionerSlide>
+
+                <MD:TransitionerSlide>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="5*"/>
+                            <RowDefinition Height="2*"/>
+                        </Grid.RowDefinitions>
+
+                        <MD:TransitioningContent HorizontalAlignment="Center" VerticalAlignment="Center">
+                            <MD:TransitioningContent.OpeningEffects>
+                                <MD:TransitionEffect Kind="FadeIn" Duration="0:0:2"/>
+                                <MD:TransitionEffect Kind="ExpandIn" Duration="0:0:2"/>
+                            </MD:TransitioningContent.OpeningEffects>
+
+                            <Grid Margin="20" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                <MD:TransitioningContent HorizontalAlignment="Center" VerticalAlignment="Center">
+                                    <MD:TransitioningContent.OpeningEffects>
+                                        <MD:TransitionEffect Kind="FadeIn" Duration="0:0:5"/>
+                                    </MD:TransitioningContent.OpeningEffects>
+
+                                    <Border HorizontalAlignment="Center" VerticalAlignment="Center">
+                                        <Border.Effect>
+                                            <BlurEffect Radius="50"/>
+                                        </Border.Effect>
+
+                                        <Ellipse Width="200" Height="50" HorizontalAlignment="Center" VerticalAlignment="Center" Fill="#192AC384"/>
+                                    </Border>
+                                </MD:TransitioningContent>
+
+                                <StackPanel>
+                                    <TextBlock Text="Обновление системы" FontSize="14" Foreground="LightGray"/>
+                                    <TextBlock Text="KEY KEEP" Foreground="White" FontSize="38" FontFamily="Arial Black"/>
+                                </StackPanel>
+                            </Grid>
+                        </MD:TransitioningContent>
+
+                        <StackPanel Grid.Row="1" Margin="20" VerticalAlignment="Bottom">
+                            <TextBlock Text="{Binding Status}" FontSize="18" Foreground="White" Margin="0 10"/>
+                            <ProgressBar IsIndeterminate="True" Height="10">
+                                <ProgressBar.Foreground>
+                                    <LinearGradientBrush>
+                                        <GradientStop Color="#190B8F58" Offset="0"/>
+                                        <GradientStop Color="#0b8f58" Offset="1"/>
+                                    </LinearGradientBrush>
+                                </ProgressBar.Foreground>
+                            </ProgressBar>
+                        </StackPanel>
+                    </Grid>
+
+                </MD:TransitionerSlide>
+            </MD:Transitioner>
+        </Border>
+    </Grid>
+</UserControl>
